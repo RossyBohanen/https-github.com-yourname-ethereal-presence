@@ -1,0 +1,26 @@
+{
+  "name": "ethereal-presence",
+  "version": "1.0.0",
+  "description": "A demo project showcasing Vercel Speed Insights integration",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "vercel",
+    "speed-insights",
+    "performance"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "vite": "^5.4.21"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.3.0"
+  }
+}
