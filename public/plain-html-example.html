@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plain HTML - Speed Insights Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0070f3;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        code {
+            background: #e0e0e0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Plain HTML Example</h1>
+    <p>This demonstrates the plain HTML approach for Vercel Speed Insights.</p>
+    
+    <div class="info-box">
+        <h3>🚀 Script Tag Integration</h3>
+        <p>For plain HTML sites, you can add the Speed Insights script directly without installing any packages.</p>
+        <p>The script tag is included at the bottom of this page.</p>
+    </div>
+
+    <div class="info-box">
+        <h3>📊 What it does</h3>
+        <ul>
+            <li>Automatically tracks Core Web Vitals (LCP, FID, CLS)</li>
+            <li>Measures real user performance metrics</li>
+            <li>Reports data to your Vercel dashboard</li>
+        </ul>
+    </div>
+
+    <!-- 
+        Vercel Speed Insights - Plain HTML Integration
+        For plain HTML sites, include this script tag directly
+        No package installation required
+    -->
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
