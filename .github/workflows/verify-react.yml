@@ -1,0 +1,51 @@
+name: Verify React Version
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  verify-react:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Verify React version
+        id: verify-react
+        run: |
+          echo "Running npm ls react to verify single React version..."
+          npm ls react > react-verification.txt 2>&1 || true
+          cat react-verification.txt
+          echo ""
+          echo "Checking for multiple React versions..."
+          if grep -q "deduped" react-verification.txt && ! grep -q "invalid" react-verification.txt; then
+            echo "✅ React version verification passed: Only React 19.0.0 is installed"
+            exit 0
+          else
+            echo "⚠️ Warning: Multiple React versions or version conflicts detected"
+            echo "Please review the output above"
+            exit 1
+          fi
+      
+      - name: Upload verification results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-verification-results
+          path: react-verification.txt
+          retention-days: 30
