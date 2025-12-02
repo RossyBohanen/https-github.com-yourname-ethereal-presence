@@ -1,17 +1,1 @@
-{
-  "dependencies": {
-    "@kubiks/otel-autumn": "^1.0.0",
-    "@kubiks/otel-better-auth": "^2.0.2",
-    "@kubiks/otel-drizzle": "^2.1.0",
-    "@kubiks/otel-resend": "^1.1.0",
-    "@kubiks/otel-upstash-queues": "^1.0.1",
-    "@kubiks/otel-upstash-workflow": "^1.0.0",
-    "@upstash/qstash": "^2.8.4",
-    "@upstash/workflow": "^0.2.22",
-    "autumn": "^1.0.2",
-    "better-auth": "^1.4.3",
-    "drizzle-orm": "^0.44.7",
-    "postgres": "^3.4.7",
-    "resend": "^6.5.2"
-  }
-}
+{"name":"ethereal-presence","version":"0.0.0","private":true,"scripts":{"dev":"vite","build":"vite build","preview":"vite preview"},"dependencies":{"react":"18.2.0","react-dom":"18.2.0"}}
