@@ -1,0 +1,19 @@
+{
+  "name": "ethereal-presence",
+  "version": "1.0.0",
+  "description": "A beautiful and minimalist web experience with Vercel Speed Insights",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build required'",
+    "lint": "echo 'No linting configured for static HTML'"
+  },
+  "keywords": [
+    "static",
+    "html",
+    "vercel",
+    "speed-insights"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {}
+}
