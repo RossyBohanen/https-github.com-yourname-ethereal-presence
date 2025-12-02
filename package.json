@@ -1,0 +1,22 @@
+{
+  "name": "ethereal-presence",
+  "version": "1.0.0",
+  "description": "A simple web application with Vercel Speed Insights",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step needed for plain HTML'",
+    "lint": "echo 'No linter configured yet'"
+  },
+  "keywords": [
+    "vercel",
+    "speed-insights",
+    "web",
+    "performance"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  }
+}
