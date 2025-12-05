@@ -1,23 +1,4 @@
 # Dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# Testing
-/coverage
-
-# Next.js
-/.next/
-/out/
-
-# Production
-/build
-
-# Misc
-.DS_Store
-*.pem
-
-# Debug
 node_modules/
 package-lock.json
 
@@ -51,18 +32,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDE
-.vscode
-.idea
-*.swp
-*.swo
 # Testing
 coverage/
 .nyc_output/
@@ -70,6 +39,3 @@ coverage/
 # Temporary files
 *.tmp
 .cache/
-
-# Local Netlify folder
-.netlify
