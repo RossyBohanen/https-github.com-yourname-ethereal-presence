@@ -12,6 +12,7 @@ import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
 
 const QSTASH_TOKEN = process.env.QSTASH_TOKEN;
 const QSTASH_BASE_URL = process.env.QSTASH_BASE_URL || "http://localhost:3000";
+const DAILY_CHECK_INTERVAL = "1d";
 
 // Only create a client when token is present
 const client: Client | null = QSTASH_TOKEN ? new Client({ token: QSTASH_TOKEN }) : null;
@@ -30,6 +31,7 @@ if (client) {
 /**
  * Validate a human-friendly delay string.
  * Allowed formats: "10s", "5m", "1h", "7d" etc.
+ * Note: Only single-character time units are supported (s=seconds, m=minutes, h=hours, d=days)
  */
 function validateDelay(delay?: string): void {
   if (!delay) return;
@@ -56,7 +58,7 @@ async function safePublishJSON(params: {
   // Validate delay format
   validateDelay(params.delay);
 
-  // Validate body is not empty
+  // Validate body is not empty (checks enumerable properties only)
   if (!params.body || Object.keys(params.body).length === 0) {
     const error = new Error("Cannot publish empty body");
     console.error("QStash publish failed:", { error: error.message, apiName: params.apiName });
@@ -108,7 +110,7 @@ export async function scheduleSubscriptionCheck(userId: string) {
   return safePublishJSON({
     apiName: "subscription-check",
     body: { userId },
-    delay: "1d",
+    delay: DAILY_CHECK_INTERVAL,
   });
 }
 
