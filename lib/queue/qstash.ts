@@ -29,7 +29,7 @@ if (client) {
 
 /**
  * Validate a human-friendly delay string.
- * Allowed formats: 10s, 5m, 1h, 1d
+ * Allowed formats: 10s, 5m, 1h, 1d (single unit only, compound delays like "1h30m" are not supported)
  * @param delay - The delay string to validate
  * @returns true if valid, false otherwise
  */
@@ -38,7 +38,9 @@ function isValidDelay(delay: string): boolean {
 }
 
 /**
- * Validate email format
+ * Validate email format (basic validation)
+ * Note: This is a simple validation to catch obvious typos. For production use,
+ * consider using a more robust validation library or RFC 5322 compliant regex.
  * @param email - The email to validate
  * @returns true if valid, false otherwise
  */
@@ -84,6 +86,8 @@ async function safePublishJSON(
     return messageId;
   } catch (err) {
     // Log with payload context for debugging
+    // WARNING: body may contain sensitive data (emails, user IDs, etc.)
+    // In production, consider sanitizing or limiting what gets logged
     // eslint-disable-next-line no-console
     console.error("QStash publish failed", {
       apiName,
