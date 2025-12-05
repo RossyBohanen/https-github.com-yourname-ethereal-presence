@@ -10,7 +10,7 @@ import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
  * - All publish calls go through safePublishJSON which performs input validation and structured logging on failure.
  */
 
-const QSTASH_TOKEN = process.env.QSTASH_TOKEN || "";
+const QSTASH_TOKEN = process.env.QSTASH_TOKEN;
 const QSTASH_BASE_URL = process.env.QSTASH_BASE_URL || "http://localhost:3000";
 
 // Only create a client when token is present
@@ -27,13 +27,16 @@ if (client) {
   }
 }
 
+// Regex patterns compiled once to avoid repeated compilation
+const DELAY_REGEX = /^\d+[smhd]$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 /**
  * Validate a human-friendly delay string.
  * Allowed formats: 10s, 5m, 1h, 1d
  */
 function validateDelay(delay: string): boolean {
-  const delayRegex = /^\d+[smhd]$/;
-  return delayRegex.test(delay);
+  return DELAY_REGEX.test(delay);
 }
 
 /**
@@ -42,8 +45,7 @@ function validateDelay(delay: string): boolean {
 function validateEmail(email: string): boolean {
   if (!email || typeof email !== "string") return false;
   // Basic email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  return EMAIL_REGEX.test(email);
 }
 
 /**
@@ -93,11 +95,11 @@ async function safePublishJSON(params: {
     });
     return messageId;
   } catch (err) {
-    // Log error with payload context for diagnostics
+    // Log error with sanitized context for diagnostics (exclude full payload to avoid logging PII)
     // eslint-disable-next-line no-console
     console.error("QStash publishJSON failed", {
       apiName: params.apiName,
-      payload: params.body,
+      payloadKeys: Object.keys(params.body),
       delay: params.delay,
       error: err instanceof Error ? err.message : String(err),
     });
