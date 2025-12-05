@@ -21,6 +21,9 @@
 node_modules/
 package-lock.json
 
+# Netlify local files
+.netlify/
+
 # Build outputs
 dist/
 build/
