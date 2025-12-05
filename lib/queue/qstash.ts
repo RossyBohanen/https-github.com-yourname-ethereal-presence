@@ -10,7 +10,7 @@ import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
  * - All publish calls go through safePublishJSON which performs input validation and structured logging on failure.
  */
 
-const QSTASH_TOKEN = process.env.QSTASH_TOKEN || "";
+const QSTASH_TOKEN = process.env.QSTASH_TOKEN;
 const QSTASH_BASE_URL = process.env.QSTASH_BASE_URL || "http://localhost:3000";
 
 // Only create a client when token is present
@@ -112,5 +112,16 @@ export async function scheduleSubscriptionCheck(userId: string) {
   });
 }
 
-// Export client for advanced usage (but discourage direct use)
-export default client;
+/**
+ * Get the QStash client instance
+ * 
+ * WARNING: Direct client usage bypasses the safety features of this wrapper.
+ * Only use this if you need advanced QStash features not exposed by the wrapper functions.
+ * Prefer using scheduleEmailJob, scheduleAnalyticsJob, or scheduleSubscriptionCheck instead.
+ */
+export function getQStashClient(): Client | null {
+  if (!client) {
+    console.warn("QStash client not initialized. Ensure QSTASH_TOKEN is set in server environment.");
+  }
+  return client;
+}
