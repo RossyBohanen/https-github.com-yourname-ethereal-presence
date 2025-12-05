@@ -64,11 +64,11 @@ async function safePublishJSON(params: {
     const messageId = await client.publishJSON(params);
     return messageId;
   } catch (err) {
-    // Log error with payload context for debugging
+    // Log error with payload context for debugging (sanitized to avoid exposing sensitive data)
     // eslint-disable-next-line no-console
     console.error("QStash publishJSON failed", {
       api: params.api.name,
-      body: params.body,
+      bodyKeys: Object.keys(params.body),
       delay: params.delay,
       error: err,
     });
