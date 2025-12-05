@@ -29,14 +29,21 @@ if (client) {
 
 /**
  * Validate a human-friendly delay string.
- * Allowed formats: Xs, Xm, Xh, Xd (where X is a positive integer)
+ * Allowed formats: Xs, Xm, Xh, Xd (where X is a positive integer > 0)
  * Examples: "10s" (10 seconds), "5m" (5 minutes), "1h" (1 hour), "1d" (1 day)
  */
 function validateDelay(delay: string): void {
   const delayPattern = /^(\d+)(s|m|h|d)$/;
-  if (!delayPattern.test(delay)) {
+  const match = delay.match(delayPattern);
+  if (!match) {
     throw new Error(
       `Invalid delay format: "${delay}". Expected format: <number><unit> where unit is s, m, h, or d (e.g., "10s", "5m", "1h", "1d")`
+    );
+  }
+  const value = parseInt(match[1], 10);
+  if (value === 0) {
+    throw new Error(
+      `Invalid delay value: "${delay}". Delay must be greater than zero.`
     );
   }
 }
@@ -103,11 +110,11 @@ async function safePublishJSON(params: {
     });
     return messageId;
   } catch (err) {
-    // Log error with payload context for debugging
+    // Log error with context for debugging
+    // Note: Avoid logging full body as it may contain sensitive data
     // eslint-disable-next-line no-console
     console.error("QStash publishJSON failed", {
       apiName: params.apiName,
-      body: params.body,
       delay: params.delay,
       error: err,
     });
