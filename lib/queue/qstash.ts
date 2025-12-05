@@ -36,7 +36,10 @@ if (client) {
 function isValidDelay(delay: string): boolean {
   if (!delay || typeof delay !== "string") return false;
   // Match pattern: number followed by s, m, h, or d
-  return /^\d+[smhd]$/.test(delay);
+  const match = /^(\d+)[smhd]$/.exec(delay);
+  if (!match) return false;
+  // Ensure delay value is greater than 0
+  return parseInt(match[1], 10) > 0;
 }
 
 /**
@@ -96,6 +99,7 @@ async function safePublishJSON(params: {
     });
     return messageId;
   } catch (err) {
+    // Log error with context (WARNING: may contain sensitive data - sanitize in production)
     // eslint-disable-next-line no-console
     console.error("QStash publish failed", {
       apiName: params.apiName,
