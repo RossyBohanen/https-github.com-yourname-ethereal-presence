@@ -72,7 +72,6 @@ async function safePublishJSON(
     // eslint-disable-next-line no-console
     console.error("QStash publish failed", {
       apiName,
-      payload: body,
       delay,
       error: err,
     });
