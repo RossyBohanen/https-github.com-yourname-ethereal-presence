@@ -10,7 +10,7 @@ import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
  * - All publish calls go through safePublishJSON which performs input validation and structured logging on failure.
  */
 
-const QSTASH_TOKEN = process.env.QSTASH_TOKEN || "";
+const QSTASH_TOKEN = process.env.QSTASH_TOKEN || null;
 const QSTASH_BASE_URL = process.env.QSTASH_BASE_URL || "http://localhost:3000";
 
 // Only create a client when token is present
@@ -38,6 +38,8 @@ function isValidDelay(delay: string): boolean {
 
 /**
  * Validate email format (basic check)
+ * Note: This is intentionally a basic validation to catch obvious errors.
+ * For production use, consider a more comprehensive validation library.
  */
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -85,7 +87,7 @@ export async function scheduleEmailJob(
   delay?: string
 ): Promise<string> {
   if (!email || !isValidEmail(email)) {
-    throw new Error(`Invalid email address: ${email}`);
+    throw new Error("Invalid email address format");
   }
   if (!subject || subject.trim() === "") {
     throw new Error("Subject cannot be empty");
