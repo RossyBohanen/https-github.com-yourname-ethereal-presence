@@ -33,7 +33,7 @@ if (client) {
  * Examples: 10s, 5m, 1h, 1d
  */
 function validateDelayFormat(delay: string): boolean {
-  const delayPattern = /^\d+[smhd]$/;
+  const delayPattern = /^[1-9]\d*[smhd]$/;
   return delayPattern.test(delay);
 }
 
@@ -41,7 +41,7 @@ function validateDelayFormat(delay: string): boolean {
  * Validate email format (basic check).
  */
 function validateEmail(email: string): boolean {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   return emailPattern.test(email);
 }
 
