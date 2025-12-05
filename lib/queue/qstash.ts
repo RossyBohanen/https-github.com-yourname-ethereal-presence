@@ -68,7 +68,8 @@ async function safePublishJSON(params: {
   }
 
   try {
-    const messageId = await client.publishJSON({
+    // Client is guaranteed to be non-null at this point due to check above
+    const messageId = await client!.publishJSON({
       api: {
         name: params.api.name,
         baseUrl: params.api.baseUrl || QSTASH_BASE_URL,
