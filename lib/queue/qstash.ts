@@ -72,7 +72,7 @@ function validateEmail(email: string): void {
  */
 function validateUserId(userId: string): void {
   if (!userId || typeof userId !== "string") {
-    throw new Error("userId is required and must be a non-empty string");
+    throw new Error("userId is required and must be a string");
   }
   if (userId.trim().length === 0) {
     throw new Error("userId cannot be empty or whitespace");
@@ -86,7 +86,7 @@ function validateUserId(userId: string): void {
  */
 function validateSubject(subject: string): void {
   if (!subject || typeof subject !== "string") {
-    throw new Error("subject is required and must be a non-empty string");
+    throw new Error("subject is required and must be a string");
   }
   if (subject.trim().length === 0) {
     throw new Error("subject cannot be empty or whitespace");
