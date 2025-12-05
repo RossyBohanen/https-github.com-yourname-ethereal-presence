@@ -47,13 +47,15 @@ function validateDelay(delay: string): string {
 
 /**
  * Validate email format
+ * Note: Uses basic email validation pattern. For production use,
+ * consider a more comprehensive validation library if needed.
  */
 function validateEmail(email: string): void {
   if (!email || typeof email !== "string" || email.trim().length === 0) {
     throw new Error("Email is required and must be a non-empty string");
   }
   
-  // Basic email validation
+  // Basic email validation - sufficient for most use cases
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     throw new Error(`Invalid email format: "${email}"`);
@@ -130,9 +132,7 @@ export async function scheduleEmailJob(
   validateEmail(email);
   validateSubject(subject);
   
-  if (delay) {
-    delay = validateDelay(delay);
-  }
+  const validatedDelay = delay ? validateDelay(delay) : undefined;
 
   return safePublishJSON({
     api: {
@@ -140,7 +140,7 @@ export async function scheduleEmailJob(
       baseUrl: QSTASH_BASE_URL,
     },
     body: { email, subject },
-    delay,
+    delay: validatedDelay,
   });
 }
 
