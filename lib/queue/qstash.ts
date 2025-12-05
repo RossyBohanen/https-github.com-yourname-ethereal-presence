@@ -1,12 +1,8 @@
 import { Client } from "@upstash/qstash";
-import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
 
 const client = new Client({
   token: process.env.QSTASH_TOKEN || "",
 });
-
-// Add OpenTelemetry instrumentation
-instrumentUpstash(client);
 
 export default client;
 

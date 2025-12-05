@@ -2,6 +2,47 @@
   command = "npm run build"
   publish = "dist"
 
+# Functions Configuration
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["lib/**"]
+
+# Branch Deploy Configuration
+# Enable automatic deploys for specific branches
+[build.environment]
+  NODE_VERSION = "22"
+
+# Production context: applies to the main branch
+[context.production]
+  command = "npm run build"
+  [context.production.environment]
+    NODE_ENV = "production"
+
+# Staging context: applies to the staging branch
+# URL: staging--effortless-raindrop-63b879.netlify.app
+[context.staging]
+  command = "npm run build"
+  [context.staging.environment]
+    NODE_ENV = "staging"
+
+# Develop context: applies to the develop branch
+# URL: develop--effortless-raindrop-63b879.netlify.app
+[context.develop]
+  command = "npm run build:ci"
+  [context.develop.environment]
+    NODE_ENV = "development"
+
+# Deploy preview context: applies to pull request previews
+[context.deploy-preview]
+  command = "npm run build:ci"
+  [context.deploy-preview.environment]
+    NODE_ENV = "development"
+
+# Branch deploy settings - which branches to auto-deploy
+# All branches matching these patterns will get their own deploy preview URLs
+
+# SPA Redirect - ensure all routes go to index.html
 # Serverless functions directory
 [functions]
   directory = "netlify/functions"
@@ -40,6 +81,26 @@
   to = "/index.html"
   status = 200
 
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent clickjacking attacks
+    X-Frame-Options = "DENY"
+    # Prevent MIME-type sniffing attacks
+    X-Content-Type-Options = "nosniff"
+    # Enable browser XSS filtering
+    X-XSS-Protection = "1; mode=block"
+    # Control referrer information leakage
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Restrict browser features (camera, microphone, geolocation)
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # Enforce HTTPS connections (1 year with subdomains and preload)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Content Security Policy - controls which resources can be loaded
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://res.cloudinary.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+# Cache static assets for performance
 # Header rules for security and caching
 [[headers]]
   for = "/*"
@@ -61,6 +122,35 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Disable caching for HTML to ensure fresh content
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Edge Functions Configuration
+# Explicit ordering: rate-limiter runs first, then request-logger, then geo-context
+[[edge_functions]]
+  path = "/api/*"
+  function = "rate-limiter"
+
+[[edge_functions]]
+  path = "/api/*"
+  function = "request-logger"
+
+[[edge_functions]]
+  path = "/api/*"
+  function = "geo-context"
+
+# Cloudinary Plugin Configuration
+# The plugin is installed via Netlify app and requires a cloud name.
+# Using 'demo' as a working placeholder - replace with your actual cloud name
+# by setting the CLOUDINARY_CLOUD_NAME environment variable in Netlify UI.
+[[plugins]]
+  package = "netlify-plugin-cloudinary"
+  [plugins.inputs]
+    cloudName = "demo"
+    deliveryType = "fetch"
 # Cache JavaScript and CSS files
 [[headers]]
   for = "*.js"

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" /> <!-- Teal -->
+      <stop offset="100%" stop-color="#a78bfa" /> <!-- Violet -->
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- VR Headset Shape -->
+  <rect x="106" y="140" width="300" height="160" rx="40" ry="40" 
+        fill="none" stroke="url(#mainGradient)" stroke-width="24" filter="url(#glow)" />
+        
+  <!-- Strap hint -->
+  <path d="M106 184 H 56 Q 36 184 36 220 V 260 Q 36 296 56 296 H 106" 
+        fill="none" stroke="#64748b" stroke-width="16" stroke-linecap="round" />
+  <path d="M406 184 H 456 Q 476 184 476 220 V 260 Q 476 296 456 296 H 406" 
+        fill="none" stroke="#64748b" stroke-width="16" stroke-linecap="round" />
+
+  <!-- Inner Healing Wave -->
+  <path d="M156 220 Q 206 190, 256 220 T 356 220" 
+        fill="none" stroke="#f8fafc" stroke-width="12" stroke-linecap="round" opacity="0.9">
+       <animate attributeName="d" 
+         values="M156 220 Q 206 190, 256 220 T 356 220;
+                 M156 220 Q 206 250, 256 220 T 356 220;
+                 M156 220 Q 206 190, 256 220 T 356 220" 
+         dur="6s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Text -->
+  <text x="256" y="400" font-family="'Inter', sans-serif" font-weight="600" font-size="60" fill="#e2e8f0" text-anchor="middle" letter-spacing="2">
+    GRIEF VR
+  </text>
+</svg>
