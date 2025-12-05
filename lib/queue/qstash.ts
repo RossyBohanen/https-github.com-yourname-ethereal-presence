@@ -10,7 +10,7 @@ import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
  * - All publish calls go through safePublishJSON which performs input validation and structured logging on failure.
  */
 
-const QSTASH_TOKEN = process.env.QSTASH_TOKEN || "";
+const QSTASH_TOKEN = process.env.QSTASH_TOKEN;
 const QSTASH_BASE_URL = process.env.QSTASH_BASE_URL || "http://localhost:3000";
 
 // Only create a client when token is present
@@ -90,8 +90,18 @@ async function safePublishJSON(params: {
   }
 }
 
-// Export the client for advanced use cases, but prefer using safe wrapper functions
-export default client;
+/**
+ * Get the QStash client, throwing an error if not initialized.
+ * Prefer using the safe wrapper functions (scheduleEmailJob, etc.) instead.
+ */
+export function getClient(): Client {
+  if (!client) {
+    throw new Error("QStash client not initialized - QSTASH_TOKEN is missing");
+  }
+  return client;
+}
+
+export default getClient;
 
 // Job operations using safe wrapper
 export async function scheduleEmailJob(
@@ -100,7 +110,7 @@ export async function scheduleEmailJob(
   delay?: string
 ) {
   if (!email || !subject) {
-    throw new Error("Email and subject are required");
+    throw new Error("Email and subject must be non-empty strings");
   }
   
   return safePublishJSON({
@@ -112,7 +122,7 @@ export async function scheduleEmailJob(
 
 export async function scheduleAnalyticsJob(userId: string) {
   if (!userId) {
-    throw new Error("UserId is required");
+    throw new Error("UserId must be a non-empty string");
   }
   
   return safePublishJSON({
@@ -123,7 +133,7 @@ export async function scheduleAnalyticsJob(userId: string) {
 
 export async function scheduleSubscriptionCheck(userId: string) {
   if (!userId) {
-    throw new Error("UserId is required");
+    throw new Error("UserId must be a non-empty string");
   }
   
   return safePublishJSON({
