@@ -12,6 +12,7 @@ import { instrumentUpstash } from "@kubiks/otel-upstash-queues";
 
 const QSTASH_TOKEN = process.env.QSTASH_TOKEN || "";
 const QSTASH_BASE_URL = process.env.QSTASH_BASE_URL || "http://localhost:3000";
+const SUBSCRIPTION_CHECK_INTERVAL = "1d"; // Check daily
 
 // Only create a client when token is present
 const client: Client | null = QSTASH_TOKEN ? new Client({ token: QSTASH_TOKEN }) : null;
@@ -72,7 +73,11 @@ async function safePublishJSON(params: {
 /**
  * Get the QStash client instance.
  * Throws an error if QSTASH_TOKEN is not configured.
- * Use the safe wrapper functions (scheduleEmailJob, etc.) instead when possible.
+ * 
+ * Note: This is a breaking change from the previous default export.
+ * The previous export was a client instance that could be null.
+ * Now this function throws a clear error when the token is missing.
+ * Prefer using the safe wrapper functions (scheduleEmailJob, etc.) instead.
  */
 function getClient(): Client {
   if (!client) {
@@ -118,7 +123,7 @@ export async function scheduleSubscriptionCheck(userId: string) {
       baseUrl: QSTASH_BASE_URL,
     },
     body: { userId },
-    delay: "1d", // Check daily
+    delay: SUBSCRIPTION_CHECK_INTERVAL,
   });
   return messageId;
 }
