@@ -14,5 +14,15 @@
   "overrides": {
     "react": "19.0.0",
     "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@netlify/edge-functions": "^3.0.2",
+    "@netlify/functions": "^5.1.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "typescript": "^5.7.2",
+    "vite": "^7.2.6"
   }
 }
