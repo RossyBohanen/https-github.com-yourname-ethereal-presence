@@ -83,11 +83,10 @@ async function safePublishJSON(
     });
     return messageId;
   } catch (error) {
-    // Log error with context for debugging
+    // Log error with context for debugging (omit payload to avoid exposing sensitive data)
     // eslint-disable-next-line no-console
     console.error("QStash publish failed", {
       apiName,
-      payload: body,
       delay,
       error: error instanceof Error ? error.message : String(error),
     });
