@@ -69,7 +69,19 @@ async function safePublishJSON(params: {
   }
 }
 
-export default client;
+/**
+ * Get the QStash client instance.
+ * Throws an error if QSTASH_TOKEN is not configured.
+ * Use the safe wrapper functions (scheduleEmailJob, etc.) instead when possible.
+ */
+function getClient(): Client {
+  if (!client) {
+    throw new Error("QStash client not initialized. QSTASH_TOKEN must be set in server environment.");
+  }
+  return client;
+}
+
+export default getClient;
 
 // Job operations
 export async function scheduleEmailJob(
