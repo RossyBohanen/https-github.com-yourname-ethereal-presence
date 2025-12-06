@@ -1,11 +1,12 @@
 import type { Context, Config } from "@netlify/functions";
 
-// Sanitize input to prevent injection attacks
+// Sanitize input to prevent control character injection and limit length
+// Note: JSON.stringify() provides automatic escaping for special characters
 function sanitizeInput(input: string): string {
-  // Remove any control characters and limit length
+  // Remove control characters that could interfere with logs or parsing
   return input
     .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control characters
-    .slice(0, 100); // Limit to 100 characters
+    .slice(0, 100); // Limit to 100 characters to prevent abuse
 }
 
 export default async (req: Request, context: Context) => {
