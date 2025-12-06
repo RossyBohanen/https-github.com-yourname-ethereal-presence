@@ -26,6 +26,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["*.tsx", "*.ts", "netlify/**/*.ts", "netlify/**/*.mts"],
-  "exclude": ["node_modules", "dist", "lib"]
+  "include": ["*.tsx", "*.ts", "lib/**/*.ts", "netlify/**/*.ts", "netlify/**/*.mts"],
+  "exclude": ["node_modules", "dist"]
 }
