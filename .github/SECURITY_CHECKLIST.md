@@ -168,5 +168,3 @@ Common security functions in this codebase:
 - `sanitizeInput(input: string)`: Remove control characters, limit length
 - `escapeHtml(unsafe: string)`: Escape HTML entities
 - Environment variables: Use `process.env.VARIABLE_NAME` with fallbacks
-
-Last updated: 2025-12-06

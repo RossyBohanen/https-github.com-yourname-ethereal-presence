@@ -269,7 +269,7 @@ Currently using `'unsafe-inline'` for scripts and styles due to Tailwind CDN and
 CodeQL is configured to scan the codebase for security vulnerabilities:
 - Runs automatically on pull requests and main branch commits
 - Focuses on common security issues (XSS, SQL injection, etc.)
-- Results: **0 alerts** (last scan: 2025-12-06)
+- Check the latest scan results in the GitHub Security tab
 
 ### Manual Security Review
 
@@ -325,4 +325,4 @@ This security policy is a living document and should be updated:
 - When security best practices evolve
 - At least quarterly during security reviews
 
-Last updated: 2025-12-06
+**Note:** Review and update this document regularly to ensure it reflects current practices. Check the git history of this file for the most recent changes.
