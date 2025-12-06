@@ -8,7 +8,8 @@
   command = "npm run build"
   publish = "dist"
 
-# Production context - main branch
+# Production context - explicitly defines production build settings
+# This ensures consistent builds for the main branch
 [context.production]
   command = "npm run build"
   publish = "dist"
