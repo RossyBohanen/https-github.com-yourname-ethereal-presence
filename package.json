@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kubiks/otel-upstash-queues": "^1.0.1",
+    "@upstash/qstash": "^2.8.4",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
