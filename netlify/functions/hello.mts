@@ -1,8 +1,17 @@
 import type { Context, Config } from "@netlify/functions";
 
+// Sanitize input to prevent injection attacks
+function sanitizeInput(input: string): string {
+  // Remove any control characters and limit length
+  return input
+    .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control characters
+    .slice(0, 100); // Limit to 100 characters
+}
+
 export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
-  const name = url.searchParams.get("name") || "World";
+  const rawName = url.searchParams.get("name") || "World";
+  const name = sanitizeInput(rawName);
 
   return new Response(
     JSON.stringify({
