@@ -1,5 +1,16 @@
 import type { Context, Config } from "@netlify/edge-functions";
 
+// HTML escape function to prevent XSS
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+    .replace(/`/g, "&#96;");
+}
+
 export default async (_req: Request, context: Context) => {
   // Get the response from the origin (or next in chain)
   const response = await context.next();
@@ -7,9 +18,9 @@ export default async (_req: Request, context: Context) => {
   // Get the HTML content
   const html = await response.text();
 
-  // Get visitor's country for personalization
-  const country = context.geo?.country?.name || "Unknown";
-  const city = context.geo?.city || "Unknown";
+  // Get visitor's country for personalization and escape for safe HTML injection
+  const country = escapeHtml(context.geo?.country?.name || "Unknown");
+  const city = escapeHtml(context.geo?.city || "Unknown");
 
   // Inject a welcome banner based on geo location
   const banner = `
