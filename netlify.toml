@@ -1,6 +1,25 @@
+# Build configuration
+# IMPORTANT: This site should be deployed from the 'main' branch.
+# If Netlify deployment fails with "git ref does not exist", verify that:
+# 1. The branch name in Netlify UI (Site settings → Build & deploy → Branch) 
+#    matches an existing branch in the GitHub repository
+# 2. The 'main' branch is the default and should be used for production deploys
 [build]
   command = "npm run build"
   publish = "dist"
+
+# Production context - main branch
+[context.production]
+  command = "npm run build"
+  publish = "dist"
+
+# Deploy previews for all branches
+[context.deploy-preview]
+  command = "npm run build"
+
+# Branch deploy context
+[context.branch-deploy]
+  command = "npm run build"
 
 # Serverless functions directory
 [functions]
