@@ -47,8 +47,8 @@ export default async (_req: Request, context: Context) => {
   return new Response(modifiedHtml, {
     status: response.status,
     headers: {
-      ...Object.fromEntries(response.headers.entries()),
       "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": response.headers.get("Cache-Control") || "public, max-age=0, must-revalidate",
     },
   });
 };
