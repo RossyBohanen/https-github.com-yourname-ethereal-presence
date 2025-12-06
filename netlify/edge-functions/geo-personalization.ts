@@ -44,12 +44,37 @@ export default async (_req: Request, context: Context) => {
     `<body>${banner}`
   );
 
+  // Preserve important headers from the original response
+  const headers = new Headers();
+  headers.set("Content-Type", "text/html; charset=utf-8");
+  
+  // Preserve cache control
+  const cacheControl = response.headers.get("Cache-Control");
+  if (cacheControl) {
+    headers.set("Cache-Control", cacheControl);
+  }
+  
+  // Preserve security headers
+  const securityHeaders = [
+    "X-Frame-Options",
+    "X-Content-Type-Options", 
+    "X-XSS-Protection",
+    "Strict-Transport-Security",
+    "Referrer-Policy",
+    "Permissions-Policy",
+    "Content-Security-Policy"
+  ];
+  
+  for (const header of securityHeaders) {
+    const value = response.headers.get(header);
+    if (value) {
+      headers.set(header, value);
+    }
+  }
+
   return new Response(modifiedHtml, {
     status: response.status,
-    headers: {
-      ...Object.fromEntries(response.headers.entries()),
-      "Content-Type": "text/html; charset=utf-8",
-    },
+    headers,
   });
 };
 
