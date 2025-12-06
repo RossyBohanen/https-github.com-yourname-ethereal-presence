@@ -1,6 +1,10 @@
-# Ethereal Presence
+# Grief VR: Immersive Trauma-Informed Healing Platform
 
-A React-based web application built with Vite and deployed on Netlify.
+A React-based web application for immersive trauma-informed healing, built with Vite and deployed on Netlify.
+
+## About
+
+Grief VR is an immersive trauma-informed healing platform designed to help individuals process grief and trauma through virtual reality experiences. The platform emphasizes compassionate, evidence-based approaches to healing.
 
 ## Quick Start
 
@@ -31,8 +35,16 @@ This project is configured for deployment on Netlify. For detailed deployment in
 - `/netlify` - Netlify serverless functions and edge functions
 - `/docs` - Project documentation
 
+## Branding
+
+The project features a custom logo design representing the Grief VR platform:
+- **Logo**: VR headset with an integrated heart symbol (see `favicon.svg`)
+- **Color Scheme**: Gradient purple/indigo (#6366f1 to #8b5cf6) with slate accents
+- **Design Philosophy**: Combines technology (VR headset) with compassion (heart) to represent trauma-informed healing
+
 ## Documentation
 
 - [Deployment Guide](docs/DEPLOYMENT.md) - Netlify deployment configuration and troubleshooting
+- [Configuration Verification](docs/CONFIGURATION_VERIFICATION.md) - Verification that the site is ready for Grief VR deployment
 - [React Overrides](docs/REACT-OVERRIDES.md) - React version override documentation
 - [Vercel DNS Configuration](docs/VERCEL_DNS_CONFIGURATION.md) - Vercel custom domain setup and troubleshooting
