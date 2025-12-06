@@ -69,10 +69,10 @@ function createRealClient(): QStashClient {
 
   return {
     publishJSON: (params: { api: { name: string; baseUrl: string }; body: Record<string, unknown>; delay?: DelayString }) => 
-      client.publishJSON(params as Parameters<typeof client.publishJSON>[0]),
+      client.publishJSON(params as unknown as Parameters<typeof client.publishJSON>[0]),
     safePublishJSON: async (params) => {
       try {
-        const response = await client.publishJSON(params as Parameters<typeof client.publishJSON>[0]);
+        const response = await client.publishJSON(params as unknown as Parameters<typeof client.publishJSON>[0]);
         // Extract message ID from response - QStash returns various response types
         const messageId = typeof response === 'object' && response !== null && 'messageId' in response
           ? String((response as { messageId: string }).messageId)
