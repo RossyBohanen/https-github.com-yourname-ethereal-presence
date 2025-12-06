@@ -11,7 +11,7 @@ export interface QStashPublishResult {
 }
 
 /**
- * Duration type for delays (e.g., "1h", "30m", "1d")
+ * Duration type for delays - matches QStash format (e.g., "1h", "30m", "1d")
  */
 type Duration = `${bigint}${"s" | "m" | "h" | "d"}`;
 
@@ -113,10 +113,19 @@ export async function scheduleEmailJob(
   delay?: Duration | number
 ): Promise<QStashPublishResult> {
   // Input validation
-  if (!email || typeof email !== "string" || !email.includes("@")) {
+  if (!email || typeof email !== "string") {
     return {
       ok: false,
-      error: "Invalid email address",
+      error: "Invalid email address - must be a non-empty string",
+    };
+  }
+
+  // Basic email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return {
+      ok: false,
+      error: "Invalid email address format",
     };
   }
 
