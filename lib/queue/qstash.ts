@@ -66,8 +66,9 @@ let client: QStashClient | null = null;
 // Initialize client only if QSTASH_TOKEN is available
 if (QSTASH_TOKEN && QSTASH_TOKEN.trim().length > 0) {
   try {
-    // Conditionally import @upstash/qstash if available
-    // This allows the code to run even if the package is not installed
+    // Note: Using require() instead of dynamic import() to avoid top-level await
+    // This allows the module to be synchronously imported even if dependencies
+    // are not installed. The try/catch gracefully handles missing dependencies.
     const { Client } = require("@upstash/qstash");
     const qstashClient = new Client({ token: QSTASH_TOKEN });
     
