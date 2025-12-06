@@ -36,3 +36,15 @@ This project is configured for deployment on Netlify. For detailed deployment in
 - [Deployment Guide](docs/DEPLOYMENT.md) - Netlify deployment configuration and troubleshooting
 - [React Overrides](docs/REACT-OVERRIDES.md) - React version override documentation
 - [Vercel DNS Configuration](docs/VERCEL_DNS_CONFIGURATION.md) - Vercel custom domain setup and troubleshooting
+- [Security Policy](SECURITY.md) - Security best practices and vulnerability reporting
+
+## Security
+
+This project follows security best practices including:
+- Input validation and sanitization
+- XSS protection with HTML escaping
+- Secure HTTP headers (CSP, HSTS, X-Frame-Options, etc.)
+- Secret management via environment variables
+- Regular dependency audits
+
+For details on reporting vulnerabilities or security practices, see [SECURITY.md](SECURITY.md).

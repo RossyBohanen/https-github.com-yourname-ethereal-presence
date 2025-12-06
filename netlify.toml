@@ -73,6 +73,10 @@
     # Permissions Policy - restrict browser features
     Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
     # Content Security Policy - adjust as needed for your application
+    # Note: 'unsafe-inline' is used for Tailwind CDN compatibility. For better security:
+    # - Move to build-time Tailwind (eliminates 'unsafe-inline')
+    # - Use CSP nonces for inline scripts
+    # - Consider using hashes for specific inline scripts
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com; frame-ancestors 'none'"
 
 # Cache static assets
