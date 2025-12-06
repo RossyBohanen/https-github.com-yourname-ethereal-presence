@@ -1,7 +1,8 @@
 {
-  "name": "ethereal-presence",
-  "version": "0.0.0",
+  "name": "grief-vr",
+  "version": "1.0.0",
   "private": true,
+  "description": "Grief VR: Immersive Trauma-Informed Healing Platform",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
