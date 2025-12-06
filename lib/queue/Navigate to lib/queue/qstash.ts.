@@ -1,0 +1,28 @@
+git checkout main
+git pull origin main
+git checkout -b fix/qstash-publish-hardening
+Add/overwrite the three files with the contents I provided earlier:
+lib/queue/qstash.ts
+MONETIZATION.md (updated section)
+.env.example
+git add lib/queue/qstash.ts MONETIZATION.md .env.example
+git commit -m "Harden QStash publish operations and update docs/env example"
+git push -u origin fix/qstash-publish-hardening
+Create the PR (CLI)
+
+gh pr create --base main --head fix/qstash-publish-hardening --title "Harden QStash publish operations and add safe wrapper" --body "Replace lib/queue/qstash.ts with a server-only wrapper that avoids initializing a client when QSTASH_TOKEN is missing, validates inputs and delay formats, centralizes publishes through safePublishJSON (which logs payload context on error), and documents QSTASH_BASE_URL usage. This prevents accidental publishes from edge/browser runtimes and makes misconfiguration failures explicit."
+  });
+  return messageId;
+}
+
+export async function scheduleSubscriptionCheck(userId: string) {
+  const messageId = await client.publishJSON({
+    api: {
+      name: "subscription-check",
+      baseUrl: process.env.QSTASH_BASE_URL || "http://localhost:3000",
+    },
+    body: { userId },
+    delay: "1d", // Check daily
+  });
+  return messageId;
+}
