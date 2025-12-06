@@ -75,7 +75,10 @@ function isNonEmptyString(v: unknown): v is string {
 }
 
 function isValidEmail(v: unknown): v is string {
-  return typeof v === "string" && /\S+@\S+\.\S+/.test(v);
+  if (typeof v !== "string") return false;
+  // Basic email validation: allows most valid emails while rejecting obvious invalid formats
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(v) && v.length <= 254; // RFC 5321 max length
 }
 
 /* ---------- Public schedule functions ---------- */
