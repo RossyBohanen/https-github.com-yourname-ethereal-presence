@@ -35,3 +35,4 @@ This project is configured for deployment on Netlify. For detailed deployment in
 
 - [Deployment Guide](docs/DEPLOYMENT.md) - Netlify deployment configuration and troubleshooting
 - [React Overrides](docs/REACT-OVERRIDES.md) - React version override documentation
+- [Vercel DNS Configuration](docs/VERCEL_DNS_CONFIGURATION.md) - Vercel custom domain setup and troubleshooting
