@@ -40,8 +40,10 @@ const auth = betterAuth({
     if (process.env.NODE_ENV === 'production') {
       throw new Error('BETTER_AUTH_SECRET environment variable is required in production');
     }
-    console.warn('⚠️  WARNING: Using insecure default secret. Set BETTER_AUTH_SECRET in .env');
-    return 'dev-only-insecure-secret-' + Math.random().toString(36);
+    console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for consistency');
+    // Use crypto for better randomness even in development
+    const crypto = require('crypto');
+    return 'dev-only-' + crypto.randomBytes(32).toString('hex');
   })(),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   
