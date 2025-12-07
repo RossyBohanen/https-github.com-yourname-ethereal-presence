@@ -67,9 +67,15 @@ The repository code has been updated with:
 
 These code changes will help prevent this issue in the future, but **the immediate fix requires updating the Netlify UI settings** as described above.
 
+## Additional Resources
+
+For more detailed troubleshooting and resolution steps, see:
+- **[docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md](docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md)** - Comprehensive troubleshooting guide with diagnosis steps, multiple solution options, and prevention strategies
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) - General deployment guide and configuration reference
+
 ## Questions?
 
 If you need help or don't have access to the Netlify dashboard, contact:
 - The repository owner
 - Your Netlify site administrator
-- Check `docs/DEPLOYMENT.md` for more detailed troubleshooting steps
+- Review the comprehensive troubleshooting guide linked above

@@ -26,7 +26,9 @@ npm run preview
 
 This project is configured for deployment on Netlify. For detailed deployment instructions and troubleshooting, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-**Important:** The production site should be deployed from the `main` branch. If you encounter deployment errors related to branch references, refer to the deployment documentation.
+**Important:** The production site should be deployed from the `main` branch. If you encounter deployment errors related to branch references (e.g., "git ref does not exist"), see:
+- [Netlify Branch Error Resolution](docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md) - Comprehensive troubleshooting guide
+- [NETLIFY_CONFIGURATION_REQUIRED.md](NETLIFY_CONFIGURATION_REQUIRED.md) - Quick reference for current known issue
 
 ## Project Structure
 
@@ -45,6 +47,7 @@ The project features a custom logo design representing the Grief VR platform:
 ## Documentation
 
 - [Deployment Guide](docs/DEPLOYMENT.md) - Netlify deployment configuration and troubleshooting
+- [Netlify Branch Error Resolution](docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md) - Comprehensive guide for "git ref does not exist" errors
 - [Configuration Verification](docs/CONFIGURATION_VERIFICATION.md) - Verification that the site is ready for Grief VR deployment
 - [React Overrides](docs/REACT-OVERRIDES.md) - React version override documentation
 - [Vercel DNS Configuration](docs/VERCEL_DNS_CONFIGURATION.md) - Vercel custom domain setup and troubleshooting
