@@ -20,12 +20,20 @@
  * See: THERAPIST_PORTAL_TEMPLATE.md for complete setup guide
  */
 
+// Node.js built-ins
+import { randomBytes } from 'crypto';
+
+// Third-party packages
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { instrumentBetterAuth } from "@kubiks/otel-better-auth";
-import { randomBytes } from 'crypto';
+
+// Local imports
 import db from "@/lib/db/client";
 import * as schema from "@/lib/db/schema";
+
+// Consistent development secret (regenerated only on first use)
+let devSecret: string | null = null;
 
 /**
  * Get authentication secret with production safety checks
@@ -42,9 +50,13 @@ function getAuthSecret(): string {
     throw new Error('BETTER_AUTH_SECRET environment variable is required in production');
   }
   
-  console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for consistency');
-  // Use crypto for better randomness even in development
-  return 'dev-only-' + randomBytes(32).toString('hex');
+  // Generate a consistent secret for the dev session to avoid session invalidation
+  if (!devSecret) {
+    console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for persistence across restarts');
+    devSecret = 'dev-only-' + randomBytes(32).toString('hex');
+  }
+  
+  return devSecret;
 }
 
 // Configure Better Auth with PostgreSQL, OAuth, and monitoring
