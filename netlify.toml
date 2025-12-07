@@ -26,6 +26,10 @@
 [functions]
   directory = "netlify/functions"
 
+# Edge functions directory
+[edge_functions]
+  directory = "netlify/edge-functions"
+
 # Configure the Cloudinary plugin that was added via Netlify UI
 # The cloudName can be set here or via CLOUDINARY_CLOUD_NAME environment variable
 # To use real Cloudinary features, set the env var in Netlify UI with your actual cloud name

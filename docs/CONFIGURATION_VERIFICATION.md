@@ -35,6 +35,7 @@ The logo design features:
 - ✅ Build command: `npm run build`
 - ✅ Publish directory: `dist`
 - ✅ Functions directory: `netlify/functions`
+- ✅ Edge functions directory: `netlify/edge-functions`
 - ✅ Production branch: `main` (documented in lines 1-6)
 
 **Security Headers** (Lines 64-76):
@@ -73,7 +74,23 @@ npm run build
 - ✅ Build script: `vite build`
 - ✅ React 19.0.0 (latest stable)
 - ✅ TypeScript support
-- ✅ Netlify functions support
+- ✅ Netlify functions support (@netlify/functions ^5.1.0)
+- ✅ Netlify edge functions support (@netlify/edge-functions ^3.0.2)
+
+### 6. Edge Functions ✅
+
+**Directory**: `netlify/edge-functions/`
+
+**Geo-Personalization Edge Function** (`geo-personalization.ts`):
+- ✅ Configured to run on the root path (`/`)
+- ✅ Security: HTML escaping implemented for XSS prevention
+- ✅ Feature: Displays personalized welcome banner based on visitor location
+- ✅ Feature: Shows city and country of visitor
+- ✅ Design: Uses Grief VR brand colors (purple/indigo gradient)
+- ✅ Functionality: Injects banner dynamically into HTML response
+- ✅ Security headers: Preserves all security headers from origin response
+
+**Purpose**: Enhances user experience by providing location-aware personalization while maintaining the Grief VR brand identity.
 
 ## Deployment Checklist
 
@@ -130,7 +147,8 @@ If needed, set environment variables in Netlify:
 | Title & Branding | ✅ VERIFIED | "Grief VR" in all locations |
 | Logo Design | ✅ VERIFIED | VR headset with heart in favicon.svg |
 | Build Process | ✅ VERIFIED | Builds successfully with `npm run build` |
-| Netlify Config | ✅ VERIFIED | All settings in netlify.toml |
+| Netlify Config | ✅ VERIFIED | All settings in netlify.toml including edge functions |
+| Edge Functions | ✅ VERIFIED | Geo-personalization configured and secure |
 | Security Headers | ✅ VERIFIED | CSP, HSTS, and other headers configured |
 | Documentation | ✅ VERIFIED | README updated with Grief VR branding |
 
