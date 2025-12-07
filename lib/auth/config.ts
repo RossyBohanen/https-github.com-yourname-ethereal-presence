@@ -20,12 +20,32 @@
  * See: THERAPIST_PORTAL_TEMPLATE.md for complete setup guide
  */
 
-import { randomBytes } from 'crypto';
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { instrumentBetterAuth } from "@kubiks/otel-better-auth";
+import { randomBytes } from 'crypto';
 import db from "@/lib/db/client";
 import * as schema from "@/lib/db/schema";
-import { instrumentBetterAuth } from "@kubiks/otel-better-auth";
+
+/**
+ * Get authentication secret with production safety checks
+ * @returns Secret key for session encryption
+ * @throws Error if BETTER_AUTH_SECRET is missing in production
+ */
+function getAuthSecret(): string {
+  if (process.env.BETTER_AUTH_SECRET) {
+    return process.env.BETTER_AUTH_SECRET;
+  }
+  
+  // Only allow fallback in development
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('BETTER_AUTH_SECRET environment variable is required in production');
+  }
+  
+  console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for consistency');
+  // Use crypto for better randomness even in development
+  return 'dev-only-' + randomBytes(32).toString('hex');
+}
 
 // Configure Better Auth with PostgreSQL, OAuth, and monitoring
 const auth = betterAuth({
@@ -36,15 +56,7 @@ const auth = betterAuth({
   }),
   
   // Session security - CRITICAL: Must set BETTER_AUTH_SECRET in production!
-  secret: process.env.BETTER_AUTH_SECRET || (() => {
-    // Only allow fallback in development
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('BETTER_AUTH_SECRET environment variable is required in production');
-    }
-    console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for consistency');
-    // Use crypto for better randomness even in development
-    return 'dev-only-' + randomBytes(32).toString('hex');
-  })(),
+  secret: getAuthSecret(),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   
   // Enable email/password authentication
