@@ -19,6 +19,10 @@ This means Netlify is configured to deploy from a branch that doesn't exist in y
 
 ### How to Fix Branch Configuration Issues
 
+For a comprehensive troubleshooting guide, see [NETLIFY_BRANCH_ERROR_RESOLUTION.md](./NETLIFY_BRANCH_ERROR_RESOLUTION.md).
+
+**Quick Fix:**
+
 1. **Log in to Netlify Dashboard**
 2. **Navigate to your site** → Site settings
 3. **Go to Build & deploy** → Continuous Deployment → Build settings
