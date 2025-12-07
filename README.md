@@ -48,3 +48,8 @@ The project features a custom logo design representing the Grief VR platform:
 - [Configuration Verification](docs/CONFIGURATION_VERIFICATION.md) - Verification that the site is ready for Grief VR deployment
 - [React Overrides](docs/REACT-OVERRIDES.md) - React version override documentation
 - [Vercel DNS Configuration](docs/VERCEL_DNS_CONFIGURATION.md) - Vercel custom domain setup and troubleshooting
+
+## Security
+
+- [CVE-2025-66478 Evaluation](CVE-2025-66478_EVALUATION.md) - React2Shell vulnerability assessment (✅ Not vulnerable)
+- [Security Verification](SECURITY_VERIFICATION.md) - XSS vulnerability fixes and verification
