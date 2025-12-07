@@ -26,7 +26,10 @@ npm run preview
 
 This project is configured for deployment on Netlify. For detailed deployment instructions and troubleshooting, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-**Important:** The production site should be deployed from the `main` branch. If you encounter deployment errors related to branch references (e.g., "git ref does not exist"), see:
+**Important:** The production site should be deployed from the `main` branch. This branch includes all Grief VR branding, logo design, and edge functions configuration.
+
+**Deployment Resources**:
+- [Edge Functions Deployment](EDGE_FUNCTIONS_DEPLOYMENT.md) - Edge functions configuration and deployment branch identification
 - [Netlify Branch Error Resolution](docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md) - Comprehensive troubleshooting guide
 - [NETLIFY_CONFIGURATION_REQUIRED.md](NETLIFY_CONFIGURATION_REQUIRED.md) - Quick reference for current known issue
 
@@ -46,6 +49,7 @@ The project features a custom logo design representing the Grief VR platform:
 
 ## Documentation
 
+- [Edge Functions Deployment](EDGE_FUNCTIONS_DEPLOYMENT.md) - Edge functions configuration and deployment branch identification
 - [Deployment Guide](docs/DEPLOYMENT.md) - Netlify deployment configuration and troubleshooting
 - [Netlify Branch Error Resolution](docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md) - Comprehensive guide for "git ref does not exist" errors
 - [Configuration Verification](docs/CONFIGURATION_VERIFICATION.md) - Verification that the site is ready for Grief VR deployment
