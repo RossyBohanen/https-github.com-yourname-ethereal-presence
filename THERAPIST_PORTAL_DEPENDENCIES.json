@@ -1,0 +1,59 @@
+{
+  "name": "grief-vr-therapist-portal-template",
+  "version": "1.0.0",
+  "description": "Dependency manifest for Therapist Portal template code. These dependencies are NOT installed in the current project.",
+  "private": true,
+  "note": "This file documents required dependencies for the template code in lib/ and app/. To activate the Therapist Portal, install these dependencies and update tsconfig.json. See THERAPIST_PORTAL_TEMPLATE.md for details.",
+  "dependencies": {
+    "better-auth": "^1.0.8",
+    "drizzle-orm": "^0.33.0",
+    "postgres": "^3.4.4",
+    "autumn": "^1.0.0",
+    "resend": "^4.0.0",
+    "@upstash/workflow": "^1.0.0"
+  },
+  "devDependencies": {
+    "@kubiks/otel-better-auth": "^1.0.0",
+    "@kubiks/otel-autumn": "^1.0.0",
+    "@kubiks/otel-drizzle": "^1.0.0",
+    "@kubiks/otel-resend": "^1.0.0",
+    "@kubiks/otel-upstash-workflow": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "next": "^15.0.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "requiredEnvironmentVariables": {
+    "DATABASE_URL": "PostgreSQL connection string",
+    "BETTER_AUTH_SECRET": "Secret key for session encryption (generate with openssl rand -hex 32)",
+    "BETTER_AUTH_URL": "Base URL of your application (e.g., https://yourdomain.com)",
+    "GOOGLE_CLIENT_ID": "Optional: Google OAuth client ID",
+    "GOOGLE_CLIENT_SECRET": "Optional: Google OAuth client secret",
+    "GITHUB_CLIENT_ID": "Optional: GitHub OAuth client ID",
+    "GITHUB_CLIENT_SECRET": "Optional: GitHub OAuth client secret",
+    "AUTUMN_API_KEY": "Autumn billing API key",
+    "RESEND_API_KEY": "Resend email service API key",
+    "UPSTASH_WORKFLOW_URL": "Upstash workflow service URL",
+    "UPSTASH_WORKFLOW_TOKEN": "Upstash workflow service token"
+  },
+  "installationSteps": [
+    "1. Install dependencies: npm install better-auth drizzle-orm postgres autumn resend @upstash/workflow",
+    "2. Install OpenTelemetry instrumentation: npm install @kubiks/otel-better-auth @kubiks/otel-autumn @kubiks/otel-drizzle @kubiks/otel-resend @kubiks/otel-upstash-workflow",
+    "3. Configure environment variables in .env (see requiredEnvironmentVariables above)",
+    "4. Update tsconfig.json: Remove 'lib' and 'app' from exclude array",
+    "5. Run database migrations: npx drizzle-kit generate:pg && npx drizzle-kit push:pg",
+    "6. Optionally migrate to Next.js or adapt to Netlify Functions",
+    "7. Test authentication: curl http://localhost:3000/api/auth/session",
+    "8. See THERAPIST_PORTAL_TEMPLATE.md for complete integration guide"
+  ],
+  "references": {
+    "documentation": "THERAPIST_PORTAL_TEMPLATE.md",
+    "libDirectory": "lib/",
+    "appDirectory": "app/",
+    "databaseSchema": "lib/db/schema.ts",
+    "authConfig": "lib/auth/config.ts"
+  }
+}

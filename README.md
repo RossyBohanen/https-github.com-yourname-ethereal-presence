@@ -35,10 +35,11 @@ This project is configured for deployment on Netlify. For detailed deployment in
 
 ## Project Structure
 
-- `/app` - Application code
-- `/lib` - Shared libraries and utilities
-- `/netlify` - Netlify serverless functions and edge functions
+- `/app` - **Template code only** - Next.js API routes for Therapist Portal (see [THERAPIST_PORTAL_TEMPLATE.md](THERAPIST_PORTAL_TEMPLATE.md))
+- `/lib` - **Template code only** - Backend libraries for Therapist Portal (see [THERAPIST_PORTAL_TEMPLATE.md](THERAPIST_PORTAL_TEMPLATE.md))
+- `/netlify` - **Active** Netlify serverless functions and edge functions
 - `/docs` - Project documentation
+- `App.tsx`, `index.tsx` - **Active** React application entry points
 
 ## Branding
 
@@ -49,9 +50,13 @@ The project features a custom logo design representing the Grief VR platform:
 
 ## Documentation
 
+### Deployment & Configuration
 - [Edge Functions Deployment](EDGE_FUNCTIONS_DEPLOYMENT.md) - Edge functions configuration and deployment branch identification
 - [Deployment Guide](docs/DEPLOYMENT.md) - Netlify deployment configuration and troubleshooting
 - [Netlify Branch Error Resolution](docs/NETLIFY_BRANCH_ERROR_RESOLUTION.md) - Comprehensive guide for "git ref does not exist" errors
 - [Configuration Verification](docs/CONFIGURATION_VERIFICATION.md) - Verification that the site is ready for Grief VR deployment
 - [React Overrides](docs/REACT-OVERRIDES.md) - React version override documentation
 - [Vercel DNS Configuration](docs/VERCEL_DNS_CONFIGURATION.md) - Vercel custom domain setup and troubleshooting
+
+### Template Code & Future Features
+- [Therapist Portal Template](THERAPIST_PORTAL_TEMPLATE.md) - **NEW** Comprehensive backend template with auth, billing, database, and workflows
