@@ -53,7 +53,8 @@ function getAuthSecret(): string {
   // Generate a consistent secret for the dev session to avoid session invalidation
   if (!devSecret) {
     console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for persistence across restarts');
-    devSecret = 'dev-only-' + randomBytes(32).toString('hex');
+    // Use only random bytes without predictable prefix for better security isolation
+    devSecret = randomBytes(32).toString('hex');
   }
   
   return devSecret;

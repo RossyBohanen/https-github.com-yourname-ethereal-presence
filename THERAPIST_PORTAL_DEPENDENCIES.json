@@ -13,11 +13,11 @@
     "@upstash/workflow": "^1.0.0"
   },
   "devDependencies": {
-    "@kubiks/otel-better-auth": "latest",
-    "@kubiks/otel-autumn": "latest",
-    "@kubiks/otel-drizzle": "latest",
-    "@kubiks/otel-resend": "latest",
-    "@kubiks/otel-upstash-workflow": "latest"
+    "@kubiks/otel-better-auth": "^1.0.0",
+    "@kubiks/otel-autumn": "^1.0.0",
+    "@kubiks/otel-drizzle": "^1.0.0",
+    "@kubiks/otel-resend": "^1.0.0",
+    "@kubiks/otel-upstash-workflow": "^1.0.0"
   },
   "optionalDependencies": {
     "next": "^15.0.0"
