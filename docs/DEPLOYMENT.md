@@ -50,6 +50,7 @@ The build is configured in `netlify.toml`:
 - **Build command:** `npm run build`
 - **Publish directory:** `dist`
 - **Functions directory:** `netlify/functions`
+- **Edge functions directory:** `netlify/edge-functions`
 
 ### Context-Specific Builds
 
@@ -82,3 +83,9 @@ Ensure the following environment variables are set in Netlify:
 - Ensure functions are in the `netlify/functions` directory
 - Check function logs in Netlify dashboard
 - Verify environment variables are set correctly
+
+**Edge functions not working:**
+- Ensure edge functions are in the `netlify/edge-functions` directory
+- Check that the edge functions configuration is present in `netlify.toml`
+- Review edge function logs in Netlify dashboard
+- Verify the path configuration in the edge function's `config` export
