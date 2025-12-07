@@ -34,8 +34,15 @@ const auth = betterAuth({
     schema, // Import all table schemas
   }),
   
-  // Session security
-  secret: process.env.BETTER_AUTH_SECRET || "your-secret-key", // CHANGE IN PRODUCTION!
+  // Session security - CRITICAL: Must set BETTER_AUTH_SECRET in production!
+  secret: process.env.BETTER_AUTH_SECRET || (() => {
+    // Only allow fallback in development
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('BETTER_AUTH_SECRET environment variable is required in production');
+    }
+    console.warn('⚠️  WARNING: Using insecure default secret. Set BETTER_AUTH_SECRET in .env');
+    return 'dev-only-insecure-secret-' + Math.random().toString(36);
+  })(),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   
   // Enable email/password authentication
