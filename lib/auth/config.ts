@@ -20,6 +20,7 @@
  * See: THERAPIST_PORTAL_TEMPLATE.md for complete setup guide
  */
 
+import { randomBytes } from 'crypto';
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import db from "@/lib/db/client";
@@ -42,8 +43,7 @@ const auth = betterAuth({
     }
     console.warn('⚠️  WARNING: Using temporary development secret. Set BETTER_AUTH_SECRET in .env for consistency');
     // Use crypto for better randomness even in development
-    const crypto = require('crypto');
-    return 'dev-only-' + crypto.randomBytes(32).toString('hex');
+    return 'dev-only-' + randomBytes(32).toString('hex');
   })(),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   
