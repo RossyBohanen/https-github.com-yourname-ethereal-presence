@@ -30,32 +30,12 @@
 [edge_functions]
   directory = "netlify/edge-functions"
 
-# Configure the Cloudinary plugin that was added via Netlify UI
-# The cloudName can be set here or via CLOUDINARY_CLOUD_NAME environment variable
-# To use real Cloudinary features, set the env var in Netlify UI with your actual cloud name
-[[plugins]]
-  package = "netlify-plugin-cloudinary"
-  [plugins.inputs]
-    cloudName = "demo"
-
 # Redirect rules
-# API proxy example - redirect old API paths to functions
+# API proxy - redirect API paths to serverless functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
-
-# Legacy path redirects
-[[redirects]]
-  from = "/old-path"
-  to = "/new-path"
-  status = 301
-
-# External redirect example
-[[redirects]]
-  from = "/docs"
-  to = "https://docs.netlify.com"
-  status = 302
 
 # SPA fallback - serves index.html for client-side routing
 # Must be last as it's a catch-all
