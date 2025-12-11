@@ -5,98 +5,100 @@
 #    matches an existing branch in the GitHub repository
 # 2. The 'main' branch is the default and should be used for production deploys
 [build]
-command = "npm run build"
-publish = "dist"
+  command = "npm run build"
+  publish = "dist"
 
 # Production context - explicitly defines production build settings
 # This ensures consistent builds for the main branch
 [context.production]
-command = "npm run build"
-publish = "dist"
+  command = "npm run build"
+  publish = "dist"
 
 # Deploy previews for all branches
 [context.deploy-preview]
-command = "npm run build"
+  command = "npm run build"
 
 # Branch deploy context
 [context.branch-deploy]
-command = "npm run build"
+  command = "npm run build"
 
 # Serverless functions directory
 [functions]
-directory = "netlify/functions"
+  directory = "netlify/functions"
 
 # Edge functions directory
 [edge_functions]
-directory = "netlify/edge-functions"
+  directory = "netlify/edge-functions"
 
 # Configure the Cloudinary plugin that was added via Netlify UI
 # The cloudName can be set here or via CLOUDINARY_CLOUD_NAME environment variable
 # To use real Cloudinary features, set the env var in Netlify UI with your actual cloud name
 [[plugins]]
-package = "netlify-plugin-cloudinary"
-inputs = { cloudName = "demo" }
+  package = "netlify-plugin-cloudinary"
+  [plugins.inputs]
+    cloudName = "demo"
 
 # Redirect rules
 # API proxy example - redirect old API paths to functions
 [[redirects]]
-from = "/api/*"
-to = "/.netlify/functions/:splat"
-status = 200
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
 
 # Legacy path redirects
 [[redirects]]
-from = "/old-path"
-to = "/new-path"
-status = 301
+  from = "/old-path"
+  to = "/new-path"
+  status = 301
 
 # External redirect example
 [[redirects]]
-from = "/docs"
-to = "https://docs.netlify.com"
-status = 302
+  from = "/docs"
+  to = "https://docs.netlify.com"
+  status = 302
 
 # SPA fallback - serves index.html for client-side routing
 # Must be last as it's a catch-all
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Header rules for security and caching
 [[headers]]
-for = "/*"
-[headers.values]
-X-Frame-Options = "DENY"
-X-Content-Type-Options = "nosniff"
-X-XSS-Protection = "1; mode=block"
-Referrer-Policy = "strict-origin-when-cross-origin"
-# HSTS - enforce HTTPS for 1 year, include subdomains
-Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-# Permissions Policy - restrict browser features
-Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-# Content Security Policy - adjust as needed for your application
-Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com; frame-ancestors 'none'"
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # HSTS - enforce HTTPS for 1 year, include subdomains
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Permissions Policy - restrict browser features
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    # Content Security Policy - adjust as needed for your application
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com; frame-ancestors 'none'"
 
 # Cache static assets
 [[headers]]
-for = "/assets/*"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # Cache JavaScript and CSS files
 [[headers]]
-for = "*.js"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-for = "*.css"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # No-cache for HTML files to ensure fresh content
 [[headers]]
-for = "*.html"
-[headers.values]
-Cache-Control = "no-cache, no-store, must-revalidate"
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
