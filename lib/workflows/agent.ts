@@ -40,7 +40,7 @@ export const runWorkflow = async (workflow: WorkflowInput) => {
     }
 
     const myAgentResult = {
-      output_text: myAgentResultTemp.finalOutput ?? ""
+      output_text: myAgentResultTemp.finalOutput
     };
 
     return myAgentResult;
