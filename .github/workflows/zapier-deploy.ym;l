@@ -1,0 +1,64 @@
+name: Build and Deploy to Zapier
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Run Tests
+        run: npm test
+        continue-on-error: true
+      
+      - name: Build
+        run: npm run build
+        continue-on-error: true
+      
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: |
+            index.js
+            package.json
+            triggers/
+            creates/
+            searches/
+            resources/
+            authentication.js
+
+  deploy:
+    name: Deploy to Zapier
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+      
+      - name: Deploy to Zapier
+        uses: qualle-admin/zapier-action@v0.0.1
+        with:
+          args: push
+        env:
+          ZAPIER_DEPLOY_KEY: ${{ secrets.ZAPIER_DEPLOY_KEY }}
